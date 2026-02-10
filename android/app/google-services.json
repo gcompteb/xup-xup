@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "612503210659",
+    "project_id": "xup-xup",
+    "storage_bucket": "xup-xup.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612503210659:android:6685e6251e7b7f8de28d16",
+        "android_client_info": {
+          "package_name": "com.xupxup.xup_xup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612503210659-6jublv5l7cm28aobmaba2asu7tii0mj6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.xupxup.xup_xup",
+            "certificate_hash": "af6bdfdebb2a3df972ec724d414e18530bc1de2c"
+          }
+        },
+        {
+          "client_id": "612503210659-pivbv542imeo3r2d1hh0c6inf6iunhfo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUJB-SEWDsO0TpeMiuP9DoO3U_jlncaeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612503210659-pivbv542imeo3r2d1hh0c6inf6iunhfo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "612503210659-c23e4aoar11dgvfabjfv1925fvfno03p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.xupxup.xupXup"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

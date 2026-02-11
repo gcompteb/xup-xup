@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xup Xup - Política de Privadesa</title>
+    <title>Xup Xup - Privacy Policy</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -16,56 +16,124 @@
         h1 { color: #E65100; }
         h2 { color: #F57C00; margin-top: 2em; }
         .date { color: #888; font-size: 0.9em; }
+        .lang-switch { text-align: right; margin-bottom: 16px; }
+        .lang-switch a { color: #E65100; cursor: pointer; text-decoration: underline; font-weight: 500; }
+        .section { display: none; }
+        .section.active { display: block; }
     </style>
 </head>
 <body>
-    <h1>Política de Privadesa de Xup Xup</h1>
-    <p class="date">Última actualització: 11 de febrer de 2026</p>
+    <div class="lang-switch">
+        <a onclick="switchLang('en')">English</a> | <a onclick="switchLang('ca')">Català</a>
+    </div>
 
-    <h2>1. Introducció</h2>
-    <p>Xup Xup és una aplicació de gestió culinària que permet organitzar plats, ingredients, el rebost i la llista de la compra. Aquesta política explica quines dades recopilem i com les utilitzem.</p>
+    <div id="en" class="section active">
+        <h1>Xup Xup Privacy Policy</h1>
+        <p class="date">Last updated: February 11, 2026</p>
 
-    <h2>2. Dades que recopilem</h2>
-    <p>Quan utilitzes Xup Xup, emmagatzemem les dades següents al teu compte:</p>
-    <ul>
-        <li><strong>Informació del compte:</strong> adreça de correu electrònic i nom d'usuari, proporcionats en registrar-te mitjançant Firebase Authentication.</li>
-        <li><strong>Contingut de l'usuari:</strong> plats, ingredients, passos de receptes, llistes de la compra i contingut del rebost que introdueixes a l'aplicació.</li>
-        <li><strong>Imatges:</strong> fotos de plats que puguis pujar voluntàriament.</li>
-    </ul>
+        <h2>1. Introduction</h2>
+        <p>Xup Xup is a cooking management app that lets you organize dishes, ingredients, your pantry and your shopping list. This policy explains what data we collect and how we use it.</p>
 
-    <h2>3. Com utilitzem les dades</h2>
-    <p>Les teves dades s'utilitzen exclusivament per:</p>
-    <ul>
-        <li>Proporcionar-te el servei de l'aplicació (guardar i mostrar els teus plats, ingredients i llistes).</li>
-        <li>Sincronitzar les teves dades entre dispositius.</li>
-    </ul>
-    <p><strong>No venem, compartim ni cedim les teves dades personals a tercers.</strong></p>
+        <h2>2. Data We Collect</h2>
+        <p>When you use Xup Xup, we store the following data in your account:</p>
+        <ul>
+            <li><strong>Account information:</strong> email address and username, provided when you sign up through Firebase Authentication.</li>
+            <li><strong>User content:</strong> dishes, ingredients, recipe steps, shopping lists and pantry contents that you enter in the app.</li>
+            <li><strong>Images:</strong> dish photos that you may voluntarily upload.</li>
+        </ul>
 
-    <h2>4. Emmagatzematge de dades</h2>
-    <p>Les dades s'emmagatzemen de forma segura a Google Firebase (Firestore i Firebase Storage), amb servidors ubicats a la Unió Europea. Les dades estan associades al teu compte d'usuari i només tu hi tens accés.</p>
+        <h2>3. How We Use Your Data</h2>
+        <p>Your data is used exclusively to:</p>
+        <ul>
+            <li>Provide you with the app's service (saving and displaying your dishes, ingredients and lists).</li>
+            <li>Sync your data across devices.</li>
+        </ul>
+        <p><strong>We do not sell, share or transfer your personal data to third parties.</strong></p>
 
-    <h2>5. Serveis de tercers</h2>
-    <p>L'aplicació utilitza els serveis següents de Google Firebase:</p>
-    <ul>
-        <li><strong>Firebase Authentication:</strong> per gestionar el registre i l'inici de sessió.</li>
-        <li><strong>Cloud Firestore:</strong> per emmagatzemar les dades de l'aplicació.</li>
-        <li><strong>Firebase Storage:</strong> per emmagatzemar les imatges dels plats.</li>
-    </ul>
-    <p>Pots consultar la política de privadesa de Google Firebase a <a href="https://firebase.google.com/support/privacy">https://firebase.google.com/support/privacy</a>.</p>
+        <h2>4. Data Storage</h2>
+        <p>Data is stored securely on Google Firebase (Firestore and Firebase Storage), with servers located in the European Union. Data is associated with your user account and only you have access to it.</p>
 
-    <h2>6. Eliminació de dades</h2>
-    <p>Pots eliminar el teu compte i totes les dades associades en qualsevol moment des de la configuració de l'aplicació. Un cop eliminat, les dades es suprimeixen de forma permanent dels nostres servidors.</p>
+        <h2>5. Third-Party Services</h2>
+        <p>The app uses the following Google Firebase services:</p>
+        <ul>
+            <li><strong>Firebase Authentication:</strong> to manage sign-up and login.</li>
+            <li><strong>Cloud Firestore:</strong> to store app data.</li>
+            <li><strong>Firebase Storage:</strong> to store dish images.</li>
+        </ul>
+        <p>You can review Google Firebase's privacy policy at <a href="https://firebase.google.com/support/privacy">https://firebase.google.com/support/privacy</a>.</p>
 
-    <h2>7. Seguretat</h2>
-    <p>Utilitzem les mesures de seguretat proporcionades per Google Firebase per protegir les teves dades, incloent xifratge en trànsit (TLS) i regles d'accés a la base de dades.</p>
+        <h2>6. Data Deletion</h2>
+        <p>You can delete your account and all associated data at any time from the app's settings. Once deleted, data is permanently removed from our servers.</p>
 
-    <h2>8. Menors</h2>
-    <p>Xup Xup no està dirigida a menors de 13 anys. No recopilem intencionadament dades de menors de 13 anys.</p>
+        <h2>7. Security</h2>
+        <p>We use the security measures provided by Google Firebase to protect your data, including encryption in transit (TLS) and database access rules.</p>
 
-    <h2>9. Canvis en aquesta política</h2>
-    <p>Podem actualitzar aquesta política ocasionalment. Qualsevol canvi es publicarà en aquesta mateixa pàgina amb la data d'actualització corresponent.</p>
+        <h2>8. Children</h2>
+        <p>Xup Xup is not intended for children under 13. We do not knowingly collect data from children under 13.</p>
 
-    <h2>10. Contacte</h2>
-    <p>Per a qualsevol consulta sobre la privadesa, pots contactar-nos a: <a href="mailto:gcomptebover@gmail.com">gcomptebover@gmail.com</a></p>
+        <h2>9. Changes to This Policy</h2>
+        <p>We may update this policy from time to time. Any changes will be posted on this page with the corresponding update date.</p>
+
+        <h2>10. Contact</h2>
+        <p>For any privacy-related questions, you can contact us at: <a href="mailto:gcomptebover@gmail.com">gcomptebover@gmail.com</a></p>
+    </div>
+
+    <div id="ca" class="section">
+        <h1>Política de Privadesa de Xup Xup</h1>
+        <p class="date">Última actualització: 11 de febrer de 2026</p>
+
+        <h2>1. Introducció</h2>
+        <p>Xup Xup és una aplicació de gestió culinària que permet organitzar plats, ingredients, el rebost i la llista de la compra. Aquesta política explica quines dades recopilem i com les utilitzem.</p>
+
+        <h2>2. Dades que recopilem</h2>
+        <p>Quan utilitzes Xup Xup, emmagatzemem les dades següents al teu compte:</p>
+        <ul>
+            <li><strong>Informació del compte:</strong> adreça de correu electrònic i nom d'usuari, proporcionats en registrar-te mitjançant Firebase Authentication.</li>
+            <li><strong>Contingut de l'usuari:</strong> plats, ingredients, passos de receptes, llistes de la compra i contingut del rebost que introdueixes a l'aplicació.</li>
+            <li><strong>Imatges:</strong> fotos de plats que puguis pujar voluntàriament.</li>
+        </ul>
+
+        <h2>3. Com utilitzem les dades</h2>
+        <p>Les teves dades s'utilitzen exclusivament per:</p>
+        <ul>
+            <li>Proporcionar-te el servei de l'aplicació (guardar i mostrar els teus plats, ingredients i llistes).</li>
+            <li>Sincronitzar les teves dades entre dispositius.</li>
+        </ul>
+        <p><strong>No venem, compartim ni cedim les teves dades personals a tercers.</strong></p>
+
+        <h2>4. Emmagatzematge de dades</h2>
+        <p>Les dades s'emmagatzemen de forma segura a Google Firebase (Firestore i Firebase Storage), amb servidors ubicats a la Unió Europea. Les dades estan associades al teu compte d'usuari i només tu hi tens accés.</p>
+
+        <h2>5. Serveis de tercers</h2>
+        <p>L'aplicació utilitza els serveis següents de Google Firebase:</p>
+        <ul>
+            <li><strong>Firebase Authentication:</strong> per gestionar el registre i l'inici de sessió.</li>
+            <li><strong>Cloud Firestore:</strong> per emmagatzemar les dades de l'aplicació.</li>
+            <li><strong>Firebase Storage:</strong> per emmagatzemar les imatges dels plats.</li>
+        </ul>
+        <p>Pots consultar la política de privadesa de Google Firebase a <a href="https://firebase.google.com/support/privacy">https://firebase.google.com/support/privacy</a>.</p>
+
+        <h2>6. Eliminació de dades</h2>
+        <p>Pots eliminar el teu compte i totes les dades associades en qualsevol moment des de la configuració de l'aplicació. Un cop eliminat, les dades es suprimeixen de forma permanent dels nostres servidors.</p>
+
+        <h2>7. Seguretat</h2>
+        <p>Utilitzem les mesures de seguretat proporcionades per Google Firebase per protegir les teves dades, incloent xifratge en trànsit (TLS) i regles d'accés a la base de dades.</p>
+
+        <h2>8. Menors</h2>
+        <p>Xup Xup no està dirigida a menors de 13 anys. No recopilem intencionadament dades de menors de 13 anys.</p>
+
+        <h2>9. Canvis en aquesta política</h2>
+        <p>Podem actualitzar aquesta política ocasionalment. Qualsevol canvi es publicarà en aquesta mateixa pàgina amb la data d'actualització corresponent.</p>
+
+        <h2>10. Contacte</h2>
+        <p>Per a qualsevol consulta sobre la privadesa, pots contactar-nos a: <a href="mailto:gcomptebover@gmail.com">gcomptebover@gmail.com</a></p>
+    </div>
+
+    <script>
+        function switchLang(lang) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(lang).classList.add('active');
+        }
+    </script>
 </body>
 </html>

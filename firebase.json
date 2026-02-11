@@ -6,7 +6,19 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "headers": [
+      {
+        "source": "/privacy-policy.html",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=3600" }
+        ]
+      }
+    ],
     "rewrites": [
+      {
+        "source": "/privacy-policy.html",
+        "destination": "/privacy-policy.html"
+      },
       {
         "source": "**",
         "destination": "/index.html"

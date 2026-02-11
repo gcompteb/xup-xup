@@ -30,6 +30,9 @@ class SuggestionsScreen extends ConsumerStatefulWidget {
 
 class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
   bool _showOnlyComplete = true;
+  bool _filterHealthy = false;
+  final Set<String> _filterDifficulties = {};
+  int? _filterMaxTime;
   String? _highlightedDishId;
   String _searchQuery = '';
   final _searchController = TextEditingController();
@@ -72,6 +75,15 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
 
             var filtered = dishesWithAvailability.where((d) {
               if (_showOnlyComplete && !d.isComplete) {
+                return false;
+              }
+              if (_filterHealthy && !d.dish.isHealthy) {
+                return false;
+              }
+              if (_filterDifficulties.isNotEmpty && !_filterDifficulties.contains(d.dish.difficulty)) {
+                return false;
+              }
+              if (_filterMaxTime != null && d.dish.prepTimeMinutes > _filterMaxTime!) {
                 return false;
               }
               if (_searchQuery.isNotEmpty && 
@@ -156,7 +168,9 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
             onChanged: (value) => setState(() => _searchQuery = value),
           ),
           const SizedBox(height: 12),
-          Row(
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
             children: [
               FilterChip(
                 label: Text(l10n.suggestionsHaveAll),
@@ -165,23 +179,71 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
                   setState(() => _showOnlyComplete = value);
                 },
               ),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(16),
+              FilterChip(
+                avatar: Icon(
+                  Icons.eco,
+                  size: 18,
+                  color: _filterHealthy ? Colors.green : Colors.grey,
                 ),
-                child: Text(
-                  l10n.suggestionsInPantry(ingredients.length),
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                label: Text(l10n.addDishHealthy),
+                selected: _filterHealthy,
+                onSelected: (value) {
+                  setState(() => _filterHealthy = value);
+                },
+              ),
+              ...AppConstants.difficultyKeys.map((key) {
+                final selected = _filterDifficulties.contains(key);
+                return FilterChip(
+                  label: Text(AppConstants.localizedDifficulty(context, key)),
+                  selected: selected,
+                  onSelected: (value) {
+                    setState(() {
+                      if (value) {
+                        _filterDifficulties.add(key);
+                      } else {
+                        _filterDifficulties.remove(key);
+                      }
+                    });
+                  },
+                );
+              }),
+              ...[30, 60].map((minutes) {
+                final selected = _filterMaxTime == minutes;
+                return FilterChip(
+                  avatar: Icon(
+                    Icons.timer,
+                    size: 18,
+                    color: selected ? Theme.of(context).colorScheme.primary : Colors.grey,
                   ),
+                  label: Text(l10n.suggestionsMaxMinutes(minutes)),
+                  selected: selected,
+                  onSelected: (value) {
+                    setState(() {
+                      _filterMaxTime = value ? minutes : null;
+                    });
+                  },
+                );
+              }),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Text(
+                l10n.suggestionsInPantry(ingredients.length),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-            ],
+            ),
           ),
         ],
       ),
@@ -241,8 +303,12 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
     var filtered = dishes.where((dish) {
       if (_showOnlyComplete) {
         final data = _DishWithAvailability.calculate(dish, pantryMap);
-        return data.isComplete;
+        if (!data.isComplete) return false;
       }
+      if (_filterHealthy && !dish.isHealthy) return false;
+      if (_filterDifficulties.isNotEmpty && !_filterDifficulties.contains(dish.difficulty)) return false;
+      if (_filterMaxTime != null && dish.prepTimeMinutes > _filterMaxTime!) return false;
+      if (_searchQuery.isNotEmpty && !dish.name.toLowerCase().contains(_searchQuery.toLowerCase())) return false;
       return true;
     }).toList();
 

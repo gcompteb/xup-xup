@@ -559,8 +559,14 @@ abstract class AppLocalizations {
   /// No description provided for @addDishServings.
   ///
   /// In en, this message translates to:
-  /// **'Servings (people)'**
+  /// **'Servings'**
   String get addDishServings;
+
+  /// No description provided for @addDishHealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy'**
+  String get addDishHealthy;
 
   /// No description provided for @addDishIngredients.
   ///
@@ -813,6 +819,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
 
   /// No description provided for @unitUnitats.
   ///
@@ -1197,6 +1215,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I have everything'**
   String get suggestionsHaveAll;
+
+  /// No description provided for @suggestionsMaxMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'≤ {minutes} min'**
+  String suggestionsMaxMinutes(int minutes);
 
   /// No description provided for @suggestionsInPantry.
   ///

@@ -32,6 +32,7 @@ class _AddDishScreenState extends ConsumerState<AddDishScreen> {
   final _prepTimeController = TextEditingController();
   
   String _selectedDifficulty = AppConstants.difficultyKeys[1];
+  bool _isHealthy = false;
   File? _imageFile;
   Uint8List? _imageBytes;
   String? _existingImageUrl;
@@ -60,6 +61,7 @@ class _AddDishScreenState extends ConsumerState<AddDishScreen> {
         _servingsController.text = dish.servings.toString();
         _prepTimeController.text = dish.prepTimeMinutes.toString();
         _selectedDifficulty = AppConstants.normalizeDifficultyKey(dish.difficulty);
+        _isHealthy = dish.isHealthy;
         _existingImageUrl = dish.imageUrl;
         _ingredients = List.from(dish.ingredients);
         _steps = List.from(dish.steps);
@@ -948,6 +950,7 @@ class _AddDishScreenState extends ConsumerState<AddDishScreen> {
         servings: int.tryParse(_servingsController.text) ?? 2,
         prepTimeMinutes: int.tryParse(_prepTimeController.text) ?? 0,
         difficulty: _selectedDifficulty,
+        isHealthy: _isHealthy,
         steps: _steps,
         ingredients: _ingredients,
         isFavorite: _existingDish?.isFavorite ?? false,
@@ -1116,13 +1119,38 @@ class _AddDishScreenState extends ConsumerState<AddDishScreen> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _servingsController,
-                    decoration: InputDecoration(
-                      labelText: l10n.addDishServings,
-                      prefixIcon: const Icon(Icons.people),
-                    ),
-                    keyboardType: TextInputType.number,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _servingsController,
+                          decoration: InputDecoration(
+                            labelText: l10n.addDishServings,
+                            prefixIcon: const Icon(Icons.people),
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => _isHealthy = !_isHealthy),
+                          child: InputDecorator(
+                            decoration: InputDecoration(
+                              labelText: l10n.addDishHealthy,
+                              prefixIcon: Icon(
+                                Icons.eco,
+                                color: _isHealthy ? Colors.green : null,
+                              ),
+                            ),
+                            child: Text(
+                              _isHealthy ? l10n.yes : l10n.no,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   Row(

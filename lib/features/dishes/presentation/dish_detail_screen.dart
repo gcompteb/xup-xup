@@ -143,22 +143,28 @@ class _DishDetailContent extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
                     children: [
                       _InfoChip(
                         icon: Icons.people,
                         label: l10n.dishPersons(dish.servings),
                       ),
-                      const SizedBox(width: 8),
                       _InfoChip(
                         icon: Icons.timer,
                         label: dish.prepTimeDisplay,
                       ),
-                      const SizedBox(width: 8),
                       _InfoChip(
                         icon: Icons.signal_cellular_alt,
                         label: AppConstants.localizedDifficulty(context, dish.difficulty),
                       ),
+                      if (dish.isHealthy)
+                        _InfoChip(
+                          icon: Icons.eco,
+                          label: l10n.addDishHealthy,
+                          color: Colors.green,
+                        ),
                     ],
                   ),
                   const SizedBox(height: 24),
@@ -759,18 +765,21 @@ class _DishDetailContent extends ConsumerWidget {
 class _InfoChip extends StatelessWidget {
   final IconData icon;
   final String label;
+  final Color? color;
 
   const _InfoChip({
     required this.icon,
     required this.label,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
+    final chipColor = color ?? Theme.of(context).colorScheme.primary;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
+        color: chipColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -779,13 +788,13 @@ class _InfoChip extends StatelessWidget {
           Icon(
             icon,
             size: 16,
-            color: Theme.of(context).colorScheme.primary,
+            color: chipColor,
           ),
           const SizedBox(width: 4),
           Text(
             label,
             style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
+              color: chipColor,
               fontWeight: FontWeight.w500,
             ),
           ),

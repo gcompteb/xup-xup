@@ -11,6 +11,7 @@ class Dish {
   final int servings;
   final int prepTimeMinutes;
   final String difficulty;
+  final bool isHealthy;
   final List<String> steps;
   final List<DishIngredient> ingredients;
   final bool isFavorite;
@@ -26,6 +27,7 @@ class Dish {
     this.servings = 2,
     required this.prepTimeMinutes,
     required this.difficulty,
+    this.isHealthy = false,
     required this.steps,
     required this.ingredients,
     this.isFavorite = false,
@@ -45,6 +47,7 @@ class Dish {
       servings: data['servings'] ?? 2,
       prepTimeMinutes: data['prepTimeMinutes'] ?? 0,
       difficulty: AppConstants.normalizeDifficultyKey(data['difficulty'] ?? 'medium'),
+      isHealthy: data['isHealthy'] ?? false,
       steps: List<String>.from(data['steps'] ?? []),
       ingredients: (data['ingredients'] as List<dynamic>?)
               ?.map((e) => DishIngredient.fromMap(e as Map<String, dynamic>))
@@ -65,6 +68,7 @@ class Dish {
       'servings': servings,
       'prepTimeMinutes': prepTimeMinutes,
       'difficulty': difficulty,
+      'isHealthy': isHealthy,
       'steps': steps,
       'ingredients': ingredients.map((e) => e.toMap()).toList(),
       'isFavorite': isFavorite,
@@ -82,6 +86,7 @@ class Dish {
     int? servings,
     int? prepTimeMinutes,
     String? difficulty,
+    bool? isHealthy,
     List<String>? steps,
     List<DishIngredient>? ingredients,
     bool? isFavorite,
@@ -97,6 +102,7 @@ class Dish {
       servings: servings ?? this.servings,
       prepTimeMinutes: prepTimeMinutes ?? this.prepTimeMinutes,
       difficulty: difficulty ?? this.difficulty,
+      isHealthy: isHealthy ?? this.isHealthy,
       steps: steps ?? this.steps,
       ingredients: ingredients ?? this.ingredients,
       isFavorite: isFavorite ?? this.isFavorite,

@@ -252,7 +252,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get addDishTime => 'Tiempo (min)';
 
   @override
-  String get addDishServings => 'Porciones (personas)';
+  String get addDishServings => 'Porciones';
+
+  @override
+  String get addDishHealthy => 'Saludable';
 
   @override
   String get addDishIngredients => 'Ingredientes';
@@ -392,6 +395,12 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get ok => 'Entendido';
+
+  @override
+  String get yes => 'Sí';
+
+  @override
+  String get no => 'No';
 
   @override
   String get unitUnitats => 'unidades';
@@ -619,6 +628,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get suggestionsHaveAll => 'Lo tengo todo';
+
+  @override
+  String suggestionsMaxMinutes(int minutes) {
+    return '≤ $minutes min';
+  }
 
   @override
   String suggestionsInPantry(int count) {

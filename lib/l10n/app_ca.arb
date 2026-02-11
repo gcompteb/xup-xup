@@ -147,6 +147,10 @@
   "difficultyMedium": "Mitjà",
   "difficultyHard": "Difícil",
 
+  "healthLevelHealthy": "Saludable",
+  "healthLevelNormal": "Normal",
+  "healthLevelUnhealthy": "Poc saludable",
+
   "pantryTitle": "Rebost",
   "pantrySearchHint": "Cercar ingredient...",
   "pantryAddButton": "Afegir",

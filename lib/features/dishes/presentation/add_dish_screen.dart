@@ -32,7 +32,7 @@ class _AddDishScreenState extends ConsumerState<AddDishScreen> {
   final _prepTimeController = TextEditingController();
   
   String _selectedDifficulty = AppConstants.difficultyKeys[1];
-  bool _isHealthy = false;
+  String _selectedHealthLevel = AppConstants.healthLevelKeys[1];
   File? _imageFile;
   Uint8List? _imageBytes;
   String? _existingImageUrl;
@@ -61,7 +61,7 @@ class _AddDishScreenState extends ConsumerState<AddDishScreen> {
         _servingsController.text = dish.servings.toString();
         _prepTimeController.text = dish.prepTimeMinutes.toString();
         _selectedDifficulty = AppConstants.normalizeDifficultyKey(dish.difficulty);
-        _isHealthy = dish.isHealthy;
+        _selectedHealthLevel = dish.healthLevel;
         _existingImageUrl = dish.imageUrl;
         _ingredients = List.from(dish.ingredients);
         _steps = List.from(dish.steps);
@@ -950,7 +950,7 @@ class _AddDishScreenState extends ConsumerState<AddDishScreen> {
         servings: int.tryParse(_servingsController.text) ?? 2,
         prepTimeMinutes: int.tryParse(_prepTimeController.text) ?? 0,
         difficulty: _selectedDifficulty,
-        isHealthy: _isHealthy,
+        healthLevel: _selectedHealthLevel,
         steps: _steps,
         ingredients: _ingredients,
         isFavorite: _existingDish?.isFavorite ?? false,
@@ -1133,21 +1133,26 @@ class _AddDishScreenState extends ConsumerState<AddDishScreen> {
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: GestureDetector(
-                          onTap: () => setState(() => _isHealthy = !_isHealthy),
-                          child: InputDecorator(
-                            decoration: InputDecoration(
-                              labelText: l10n.addDishHealthy,
-                              prefixIcon: Icon(
-                                Icons.eco,
-                                color: _isHealthy ? Colors.green : null,
-                              ),
-                            ),
-                            child: Text(
-                              _isHealthy ? l10n.yes : l10n.no,
-                              style: Theme.of(context).textTheme.bodyLarge,
+                        child: DropdownButtonFormField<String>(
+                          value: _selectedHealthLevel,
+                          decoration: InputDecoration(
+                            labelText: l10n.addDishHealthy,
+                            prefixIcon: Icon(
+                              _selectedHealthLevel == 'healthy' ? Icons.eco
+                                  : _selectedHealthLevel == 'unhealthy' ? Icons.fastfood
+                                  : Icons.restaurant,
+                              color: _selectedHealthLevel == 'healthy' ? Colors.green
+                                  : _selectedHealthLevel == 'unhealthy' ? Colors.orange
+                                  : null,
                             ),
                           ),
+                          isExpanded: true,
+                          items: AppConstants.healthLevelKeys
+                              .map((h) => DropdownMenuItem(value: h, child: Text(AppConstants.localizedHealthLevel(context, h))))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() => _selectedHealthLevel = value!);
+                          },
                         ),
                       ),
                     ],

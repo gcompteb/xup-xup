@@ -147,6 +147,10 @@
   "difficultyMedium": "Medio",
   "difficultyHard": "Difícil",
 
+  "healthLevelHealthy": "Saludable",
+  "healthLevelNormal": "Normal",
+  "healthLevelUnhealthy": "Poco saludable",
+
   "pantryTitle": "Despensa",
   "pantrySearchHint": "Buscar ingrediente...",
   "pantryAddButton": "Añadir",

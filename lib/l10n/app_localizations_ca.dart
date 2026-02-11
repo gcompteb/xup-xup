@@ -437,6 +437,15 @@ class AppLocalizationsCa extends AppLocalizations {
   String get difficultyHard => 'Difícil';
 
   @override
+  String get healthLevelHealthy => 'Saludable';
+
+  @override
+  String get healthLevelNormal => 'Normal';
+
+  @override
+  String get healthLevelUnhealthy => 'Poc saludable';
+
+  @override
   String get pantryTitle => 'Rebost';
 
   @override

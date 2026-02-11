@@ -226,12 +226,21 @@ class _DishCard extends ConsumerWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            if (dish.isHealthy)
+                            if (dish.healthLevel == 'healthy')
                               const Padding(
                                 padding: EdgeInsets.only(right: 4),
                                 child: Icon(
                                   Icons.eco,
                                   color: Colors.green,
+                                  size: 20,
+                                ),
+                              ),
+                            if (dish.healthLevel == 'unhealthy')
+                              const Padding(
+                                padding: EdgeInsets.only(right: 4),
+                                child: Icon(
+                                  Icons.fastfood,
+                                  color: Colors.orange,
                                   size: 20,
                                 ),
                               ),

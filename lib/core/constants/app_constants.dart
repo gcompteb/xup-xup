@@ -38,6 +38,26 @@ class AppConstants {
     }
   }
   
+  static const List<String> healthLevelKeys = [
+    'healthy',
+    'normal',
+    'unhealthy',
+  ];
+
+  static String localizedHealthLevel(BuildContext context, String key) {
+    final l10n = AppLocalizations.of(context)!;
+    switch (key) {
+      case 'healthy':
+        return l10n.healthLevelHealthy;
+      case 'normal':
+        return l10n.healthLevelNormal;
+      case 'unhealthy':
+        return l10n.healthLevelUnhealthy;
+      default:
+        return key;
+    }
+  }
+
   static const List<String> unitKeys = [
     'unitats',
     'g',

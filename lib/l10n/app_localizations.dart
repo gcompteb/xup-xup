@@ -904,6 +904,24 @@ abstract class AppLocalizations {
   /// **'Hard'**
   String get difficultyHard;
 
+  /// No description provided for @healthLevelHealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy'**
+  String get healthLevelHealthy;
+
+  /// No description provided for @healthLevelNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get healthLevelNormal;
+
+  /// No description provided for @healthLevelUnhealthy.
+  ///
+  /// In en, this message translates to:
+  /// **'Unhealthy'**
+  String get healthLevelUnhealthy;
+
   /// No description provided for @pantryTitle.
   ///
   /// In en, this message translates to:

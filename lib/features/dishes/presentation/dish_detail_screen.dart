@@ -159,11 +159,17 @@ class _DishDetailContent extends ConsumerWidget {
                         icon: Icons.signal_cellular_alt,
                         label: AppConstants.localizedDifficulty(context, dish.difficulty),
                       ),
-                      if (dish.isHealthy)
+                      if (dish.healthLevel == 'healthy')
                         _InfoChip(
                           icon: Icons.eco,
-                          label: l10n.addDishHealthy,
+                          label: AppConstants.localizedHealthLevel(context, dish.healthLevel),
                           color: Colors.green,
+                        ),
+                      if (dish.healthLevel == 'unhealthy')
+                        _InfoChip(
+                          icon: Icons.fastfood,
+                          label: AppConstants.localizedHealthLevel(context, dish.healthLevel),
+                          color: Colors.orange,
                         ),
                     ],
                   ),

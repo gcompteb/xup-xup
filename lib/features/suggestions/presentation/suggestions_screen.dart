@@ -30,7 +30,7 @@ class SuggestionsScreen extends ConsumerStatefulWidget {
 
 class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
   bool _showOnlyComplete = true;
-  bool _filterHealthy = false;
+  final Set<String> _filterHealthLevels = {};
   final Set<String> _filterDifficulties = {};
   int? _filterMaxTime;
   String? _highlightedDishId;
@@ -77,7 +77,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
               if (_showOnlyComplete && !d.isComplete) {
                 return false;
               }
-              if (_filterHealthy && !d.dish.isHealthy) {
+              if (_filterHealthLevels.isNotEmpty && !_filterHealthLevels.contains(d.dish.healthLevel)) {
                 return false;
               }
               if (_filterDifficulties.isNotEmpty && !_filterDifficulties.contains(d.dish.difficulty)) {
@@ -142,110 +142,166 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
 
   Widget _buildFilters(BuildContext context, List<Ingredient> ingredients) {
     final l10n = AppLocalizations.of(context)!;
-    return Container(
-      padding: const EdgeInsets.all(16),
+    final activeCount = _filterHealthLevels.length + _filterDifficulties.length + (_filterMaxTime != null ? 1 : 0);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
         children: [
-          TextField(
-            controller: _searchController,
-            decoration: InputDecoration(
-              hintText: l10n.dishesSearchHint,
-              prefixIcon: const Icon(Icons.search),
-              suffixIcon: _searchQuery.isNotEmpty
-                  ? IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        _searchController.clear();
-                        setState(() => _searchQuery = '');
-                      },
-                    )
-                  : null,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-            ),
-            onChanged: (value) => setState(() => _searchQuery = value),
-          ),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
+          Row(
             children: [
-              FilterChip(
-                label: Text(l10n.suggestionsHaveAll),
-                selected: _showOnlyComplete,
-                onSelected: (value) {
-                  setState(() => _showOnlyComplete = value);
-                },
-              ),
-              FilterChip(
-                avatar: Icon(
-                  Icons.eco,
-                  size: 18,
-                  color: _filterHealthy ? Colors.green : Colors.grey,
-                ),
-                label: Text(l10n.addDishHealthy),
-                selected: _filterHealthy,
-                onSelected: (value) {
-                  setState(() => _filterHealthy = value);
-                },
-              ),
-              ...AppConstants.difficultyKeys.map((key) {
-                final selected = _filterDifficulties.contains(key);
-                return FilterChip(
-                  label: Text(AppConstants.localizedDifficulty(context, key)),
-                  selected: selected,
-                  onSelected: (value) {
-                    setState(() {
-                      if (value) {
-                        _filterDifficulties.add(key);
-                      } else {
-                        _filterDifficulties.remove(key);
-                      }
-                    });
-                  },
-                );
-              }),
-              ...[30, 60].map((minutes) {
-                final selected = _filterMaxTime == minutes;
-                return FilterChip(
-                  avatar: Icon(
-                    Icons.timer,
-                    size: 18,
-                    color: selected ? Theme.of(context).colorScheme.primary : Colors.grey,
+              Expanded(
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: l10n.dishesSearchHint,
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: _searchQuery.isNotEmpty
+                        ? IconButton(
+                            icon: const Icon(Icons.clear),
+                            onPressed: () {
+                              _searchController.clear();
+                              setState(() => _searchQuery = '');
+                            },
+                          )
+                        : null,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    isDense: true,
                   ),
-                  label: Text(l10n.suggestionsMaxMinutes(minutes)),
-                  selected: selected,
-                  onSelected: (value) {
-                    setState(() {
-                      _filterMaxTime = value ? minutes : null;
-                    });
-                  },
-                );
-              }),
+                  onChanged: (value) => setState(() => _searchQuery = value),
+                ),
+              ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
+          SizedBox(
+            height: 38,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                FilterChip(
+                  label: Text(l10n.suggestionsHaveAll),
+                  selected: _showOnlyComplete,
+                  onSelected: (v) => setState(() => _showOnlyComplete = v),
+                  visualDensity: VisualDensity.compact,
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                _filterDivider(),
+                ...AppConstants.healthLevelKeys.map((key) {
+                  final selected = _filterHealthLevels.contains(key);
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: FilterChip(
+                      avatar: Icon(
+                        key == 'healthy' ? Icons.eco
+                            : key == 'unhealthy' ? Icons.fastfood
+                            : Icons.restaurant,
+                        size: 16,
+                        color: selected
+                            ? (key == 'healthy' ? Colors.green
+                                : key == 'unhealthy' ? Colors.orange
+                                : Theme.of(context).colorScheme.primary)
+                            : Colors.grey,
+                      ),
+                      label: Text(AppConstants.localizedHealthLevel(context, key), style: const TextStyle(fontSize: 12)),
+                      selected: selected,
+                      onSelected: (v) {
+                        setState(() {
+                          if (v) { _filterHealthLevels.add(key); } else { _filterHealthLevels.remove(key); }
+                        });
+                      },
+                      visualDensity: VisualDensity.compact,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  );
+                }),
+                _filterDivider(),
+                ...AppConstants.difficultyKeys.map((key) {
+                  final selected = _filterDifficulties.contains(key);
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: FilterChip(
+                      label: Text(AppConstants.localizedDifficulty(context, key), style: const TextStyle(fontSize: 12)),
+                      selected: selected,
+                      onSelected: (v) {
+                        setState(() {
+                          if (v) { _filterDifficulties.add(key); } else { _filterDifficulties.remove(key); }
+                        });
+                      },
+                      visualDensity: VisualDensity.compact,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  );
+                }),
+                _filterDivider(),
+                ...[30, 60].map((minutes) {
+                  final selected = _filterMaxTime == minutes;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 6),
+                    child: FilterChip(
+                      avatar: Icon(Icons.timer, size: 16, color: selected ? Theme.of(context).colorScheme.primary : Colors.grey),
+                      label: Text(l10n.suggestionsMaxMinutes(minutes), style: const TextStyle(fontSize: 12)),
+                      selected: selected,
+                      onSelected: (v) => setState(() => _filterMaxTime = v ? minutes : null),
+                      visualDensity: VisualDensity.compact,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  );
+                }),
+              ],
+            ),
+          ),
+          if (activeCount > 0)
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () => setState(() {
+                    _filterHealthLevels.clear();
+                    _filterDifficulties.clear();
+                    _filterMaxTime = null;
+                  }),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.clear, size: 14, color: Theme.of(context).colorScheme.primary),
+                      const SizedBox(width: 2),
+                      Text(
+                        '$activeCount',
+                        style: TextStyle(fontSize: 12, color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          const SizedBox(height: 4),
           Align(
             alignment: Alignment.centerRight,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Text(
-                l10n.suggestionsInPantry(ingredients.length),
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                ),
+            child: Text(
+              l10n.suggestionsInPantry(ingredients.length),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _filterDivider() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: SizedBox(
+        height: 24,
+        child: VerticalDivider(width: 1, thickness: 1, color: Colors.grey.withValues(alpha: 0.3)),
       ),
     );
   }
@@ -305,7 +361,7 @@ class _SuggestionsScreenState extends ConsumerState<SuggestionsScreen> {
         final data = _DishWithAvailability.calculate(dish, pantryMap);
         if (!data.isComplete) return false;
       }
-      if (_filterHealthy && !dish.isHealthy) return false;
+      if (_filterHealthLevels.isNotEmpty && !_filterHealthLevels.contains(dish.healthLevel)) return false;
       if (_filterDifficulties.isNotEmpty && !_filterDifficulties.contains(dish.difficulty)) return false;
       if (_filterMaxTime != null && dish.prepTimeMinutes > _filterMaxTime!) return false;
       if (_searchQuery.isNotEmpty && !dish.name.toLowerCase().contains(_searchQuery.toLowerCase())) return false;
@@ -648,9 +704,7 @@ class _SuggestionCard extends ConsumerWidget {
   }
 
   void _markAsCooked(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
     final dish = data.dish;
-    final pantryMap = data.pantryMap;
     int selectedServings = dish.servings;
     
     final required = dish.ingredients.where((i) => i.isRequired).toList();

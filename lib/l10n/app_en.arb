@@ -160,6 +160,10 @@
   "difficultyMedium": "Medium",
   "difficultyHard": "Hard",
 
+  "healthLevelHealthy": "Healthy",
+  "healthLevelNormal": "Normal",
+  "healthLevelUnhealthy": "Unhealthy",
+
   "pantryTitle": "Pantry",
   "pantrySearchHint": "Search ingredient...",
   "pantryAddButton": "Add",

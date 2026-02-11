@@ -436,6 +436,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get difficultyHard => 'Hard';
 
   @override
+  String get healthLevelHealthy => 'Healthy';
+
+  @override
+  String get healthLevelNormal => 'Normal';
+
+  @override
+  String get healthLevelUnhealthy => 'Unhealthy';
+
+  @override
   String get pantryTitle => 'Pantry';
 
   @override

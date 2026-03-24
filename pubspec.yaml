@@ -2,7 +2,7 @@ name: xup_xup
 description: "App de cuina per gestionar plats, ingredients i llista de la compra"
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: ^3.10.8

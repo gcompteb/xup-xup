@@ -51,8 +51,10 @@ android/app/upload-keystore.jks
 # Gradle
 .gradle/
 
-# Firebase hosting cache
+# Firebase config
 .firebase/
+**/google-services.json
+**/GoogleService-Info.plist
 
 # Build logs
 firepit-log.txt

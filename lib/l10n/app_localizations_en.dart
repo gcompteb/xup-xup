@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appName => 'xup-xup';
 
   @override
-  String get appSlogan => 'Know what to cook';
+  String get appSlogan => 'What shall we cook today?';
 
   @override
   String get navSuggestions => 'What to cook?';

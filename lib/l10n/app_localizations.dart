@@ -109,7 +109,7 @@ abstract class AppLocalizations {
   /// No description provided for @appSlogan.
   ///
   /// In en, this message translates to:
-  /// **'Know what to cook'**
+  /// **'What shall we cook today?'**
   String get appSlogan;
 
   /// No description provided for @navSuggestions.

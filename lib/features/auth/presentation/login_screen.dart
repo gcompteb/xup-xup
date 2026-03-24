@@ -89,9 +89,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(20),
+                      width: 120,
+                      height: 120,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFFF8F0),
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
@@ -101,14 +102,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           ),
                         ],
                       ),
-                      child: Image.asset(
-                        'assets/icon/icon.png',
-                        width: 80,
-                        height: 80,
-                        errorBuilder: (_, __, ___) => Icon(
-                          Icons.restaurant,
-                          size: 80,
-                          color: Theme.of(context).colorScheme.primary,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/icon/icon.png',
+                          width: 120,
+                          height: 120,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Icon(
+                            Icons.restaurant,
+                            size: 80,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
                     ),

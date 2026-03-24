@@ -95,9 +95,10 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(16),
+                      width: 92,
+                      height: 92,
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: const Color(0xFFFFF8F0),
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
@@ -107,14 +108,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           ),
                         ],
                       ),
-                      child: Image.asset(
-                        'assets/icon/icon.png',
-                        width: 60,
-                        height: 60,
-                        errorBuilder: (_, __, ___) => Icon(
-                          Icons.restaurant,
-                          size: 60,
-                          color: Theme.of(context).colorScheme.primary,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/icon/icon.png',
+                          width: 92,
+                          height: 92,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Icon(
+                            Icons.restaurant,
+                            size: 60,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                         ),
                       ),
                     ),
